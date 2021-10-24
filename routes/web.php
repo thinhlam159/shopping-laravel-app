@@ -32,10 +32,14 @@ Route::prefix('admin')->group(function() {
     Route::resource('categories',App\Http\Controllers\CategoryController::class);
     Route::resource('menu',App\Http\Controllers\MenuController::class);
     Route::resource('product',App\Http\Controllers\AdminProductController::class);
+    Route::resource('user',App\Http\Controllers\AdminUserController::class);
+    Route::resource('role',App\Http\Controllers\AdminRoleController::class);
 
-    Route::get('/login', 'App\Http\Controllers\AdminController@loginAdmin');
-    Route::post('/login', 'App\Http\Controllers\AdminController@postLoginAdmin');
+
 });
+
+Route::get('/login', 'App\Http\Controllers\AdminController@loginAdmin');
+Route::post('/login', 'App\Http\Controllers\AdminController@postLoginAdmin');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

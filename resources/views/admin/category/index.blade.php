@@ -33,7 +33,7 @@
                         <td>
                             <div class="row">
                                 <a href="{{ route('categories.edit', ['category' => $category->id]) }}" class="btn btn-sm btn-success">Edit</a>
-                                <form action="{{ url('/categories', ['id' => $category->id]) }}" method="post">
+                                <form action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="post">
                                     <input class="btn btn-default" type="submit" value="Delete" />
                                     @method('delete')
                                     @csrf

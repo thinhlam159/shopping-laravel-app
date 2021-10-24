@@ -46,6 +46,18 @@
                         <p>Sản phẩm</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('user.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Danh sách nhân viên</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('role.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Danh sách vai trò</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
