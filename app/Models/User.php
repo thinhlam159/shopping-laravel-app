@@ -46,4 +46,13 @@ class User extends Authenticatable
     public function role_users() {
         return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
     }
+
+    public function checkAccessPermission($permissionCheck) {
+        foreach ($this->role_users as $role) {
+            if($role->permission->contains('key_code', $permissionCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

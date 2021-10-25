@@ -58,6 +58,11 @@
                         <p>Danh sách vai trò</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('permission.create') }}" class="nav-link">
+                        <p>Tạo dữ liệu bảng permission</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

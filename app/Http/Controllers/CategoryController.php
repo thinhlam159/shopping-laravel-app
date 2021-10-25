@@ -22,6 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->category->paginate(5);
+        $this->authorize('list_category');
         return view('admin.category.index')->with(compact('categories'));
     }
 

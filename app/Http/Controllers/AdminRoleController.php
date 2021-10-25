@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdminRoleController extends Controller
 {
     private $role;
-    public function __construct(Role $role)
+    private $permission;
+    public function __construct(Role $role, Permission $permission)
     {
         $this->role = $role;
+        $this->permission = $permission;
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +35,8 @@ class AdminRoleController extends Controller
      */
     public function create()
     {
-
+        $permissions = $this->permission->where('parent_id', 0)->get();
+        return view('admin.role.create')->with(compact('permissions'));
     }
 
     /**
@@ -41,7 +47,20 @@ class AdminRoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $role = $this->role->create([
+                'name'=> $request->name,
+                'display_name'=> $request->display_name,
+            ]);
+            $role->permission()->attach($request->permission_id);
+            DB::commit();
+            return redirect()->route('role.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message error: ' . $exception->getMessage() . 'Line: '. $exception->getLine());
+        }
+
     }
 
     /**
@@ -63,7 +82,11 @@ class AdminRoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permissions = $this->permission->where('parent_id', 0)->get();
+        $role = $this->role->find($id);
+        $permissionChecked = $role->permission;
+//        dd($role->permission);
+        return view('admin.role.edit')->with(compact('permissions', 'role', 'permissionChecked'));
     }
 
     /**
@@ -75,7 +98,20 @@ class AdminRoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->role->find($id)->update([
+                'name'=> $request->name,
+                'display_name'=> $request->display_name,
+            ]);
+            $role = $this->role->find($id);
+            $role->permission()->sync($request->permission_id);
+            DB::commit();
+            return redirect()->route('role.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message error: ' . $exception->getMessage() . 'Line: '. $exception->getLine());
+        }
     }
 
     /**
@@ -86,6 +122,9 @@ class AdminRoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = $this->role->find($id);
+        $role->permission()->detach();
+        $role->delete();
+        return redirect()->route('role.index');
     }
 }

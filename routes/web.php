@@ -34,8 +34,10 @@ Route::prefix('admin')->group(function() {
     Route::resource('product',App\Http\Controllers\AdminProductController::class);
     Route::resource('user',App\Http\Controllers\AdminUserController::class);
     Route::resource('role',App\Http\Controllers\AdminRoleController::class);
-
-
+    Route::get('/permission/create', 'App\Http\Controllers\AdminPermissionController@create')
+        ->name('permission.create');
+    Route::put('/permission/store', 'App\Http\Controllers\AdminPermissionController@store')
+        ->name('permission.store');
 });
 
 Route::get('/login', 'App\Http\Controllers\AdminController@loginAdmin');
