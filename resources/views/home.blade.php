@@ -26,7 +26,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    trang chu
+    <h1>Trang chủ</h1>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

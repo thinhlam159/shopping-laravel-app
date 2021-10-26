@@ -24,6 +24,7 @@ class AdminRoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('list_role');
         $roles = $this->role->all();
         return view('admin.role.index')->with(compact('roles'));
     }
@@ -35,6 +36,7 @@ class AdminRoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('add_role');
         $permissions = $this->permission->where('parent_id', 0)->get();
         return view('admin.role.create')->with(compact('permissions'));
     }
@@ -47,6 +49,7 @@ class AdminRoleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('add_role');
         try {
             DB::beginTransaction();
             $role = $this->role->create([
@@ -82,6 +85,7 @@ class AdminRoleController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_role');
         $permissions = $this->permission->where('parent_id', 0)->get();
         $role = $this->role->find($id);
         $permissionChecked = $role->permission;
@@ -98,6 +102,7 @@ class AdminRoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit_role');
         try {
             DB::beginTransaction();
             $this->role->find($id)->update([
@@ -122,6 +127,7 @@ class AdminRoleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete_role');
         $role = $this->role->find($id);
         $role->permission()->detach();
         $role->delete();

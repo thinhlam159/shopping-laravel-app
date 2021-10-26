@@ -35,6 +35,7 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $this->authorize('add_menu');
         $menuSelectHtml = $this->getMenu();
         return view('admin.menu.create')->with(compact('menuSelectHtml'));
     }
@@ -47,6 +48,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('add_menu');
         $data = $request->validate(
             [
                 'name' => 'required|unique:menus|max:255',
@@ -83,6 +85,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_menu');
         $menu = Menu::find($id);
         $menuSelectHtml = $this->getMenu($menu->perant_id);
         return view('admin.menu.edit')->with(compact('menu', 'menuSelectHtml'));
@@ -97,6 +100,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit_menu');
         $data = $request->validate(
             [
                 'name' => 'required|max:255',
@@ -122,6 +126,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete_menu');
         $menu = Menu::find($id);
         $menu->delete();
         return redirect()->back()->with('status', 'Xoa menu thanh cong');

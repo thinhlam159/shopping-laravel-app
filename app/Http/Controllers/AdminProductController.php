@@ -71,6 +71,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('add_product');
         try {
             DB::beginTransaction();
             $createProductData = [
@@ -135,6 +136,7 @@ class AdminProductController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_product');
         $product = $this->product->find($id);
         $menuSelectHtml = $this->getCategories($product->category_id);
         return view('admin.product.edit')->with(compact('product', 'menuSelectHtml'));
@@ -149,7 +151,7 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorize('edit_product');
     }
 
     /**
@@ -160,6 +162,6 @@ class AdminProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete_product');
     }
 }

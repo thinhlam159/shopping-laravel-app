@@ -31,7 +31,7 @@
                             <td>
                                 <div class="row">
                                     <a href="{{ route('menu.edit', ['menu' => $value->id]) }}" class="btn btn-sm btn-success">Edit</a>
-                                    <form action="{{ url('/menu', ['id' => $value->id]) }}" method="post">
+                                    <form action="{{ route('menu.destroy', ['menu' => $value->id]) }}" method="post">
                                         <input class="btn btn-default" type="submit" value="Delete" />
                                         @method('delete')
                                         @csrf

@@ -22,7 +22,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->category->paginate(5);
-        $this->authorize('list_category');
         return view('admin.category.index')->with(compact('categories'));
     }
 
@@ -34,6 +33,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categoryHtmlSelect = $this->getCategories();
+        $this->authorize('add_category');
         return view('admin.category.create')->with(compact('categoryHtmlSelect'));
     }
 
@@ -45,6 +45,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('add_category');
         $data = $request->validate(
             [
                 'name' => 'required|unique:categories|max:255',
@@ -84,6 +85,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('edit_category');
         $category = $this->category->find($id);
         $categoryHtmlSelect = $this->getCategories($category->parent_id);
         return view('admin.category.edit')->with(compact('category', 'categoryHtmlSelect'));
@@ -98,6 +100,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit_category');
         $data = $request->validate(
             [
                 'name' => 'required|max:255',
@@ -126,6 +129,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete_category');
         $category = $this->category->find($id);
         $category->delete();
         return redirect()->back()->with('status', "Xóa thành công $category->name!");

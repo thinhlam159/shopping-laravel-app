@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -22,6 +23,19 @@ class AdminController extends Controller
             'password'=>$request->password,
         ], $remember)) {
             return redirect()->to('/home');
+        } else {
+            return redirect()->back()->with('status', 'Sai tên đăng nhập hoặc mật khẩu!');
         }
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/home');
     }
 }

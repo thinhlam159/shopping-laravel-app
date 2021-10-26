@@ -38,7 +38,7 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="" method="post">
+                    <form id="login-form" class="form" action="{{route('auth.signin')}}" method="POST">
                         @csrf
                         <h3 class="text-center text-info">Login</h3>
                         <div class="form-group">
@@ -58,6 +58,11 @@
                         </div>
                     </form>
                 </div>
+                @if(session('status'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

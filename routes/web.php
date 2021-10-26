@@ -40,8 +40,9 @@ Route::prefix('admin')->group(function() {
         ->name('permission.store');
 });
 
-Route::get('/login', 'App\Http\Controllers\AdminController@loginAdmin');
-Route::post('/login', 'App\Http\Controllers\AdminController@postLoginAdmin');
+Route::get('/login', 'App\Http\Controllers\AdminController@loginAdmin')->name('auth.login');
+Route::post('/login', 'App\Http\Controllers\AdminController@postLoginAdmin')->name('auth.signin');
+Route::get('/logout', 'App\Http\Controllers\AdminController@logout')->name('auth.signout');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

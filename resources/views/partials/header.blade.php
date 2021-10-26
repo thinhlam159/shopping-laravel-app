@@ -116,6 +116,16 @@
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
             class="fas fa-th-large"></i></a>
       </li>
+        @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('auth.signout') }}">Logout</a>
+            </li>
+        @endauth
+        @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('auth.login')}}">Login</a>
+            </li>
+        @endguest
     </ul>
   </nav>
   <!-- /.navbar -->

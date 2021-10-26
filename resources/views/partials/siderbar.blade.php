@@ -16,7 +16,13 @@
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">
+                    @auth
+                        {{Auth::user()->name}}</a>
+                    @endauth
+                    @guest
+                        <span>Guest</span>
+                    @endguest
             </div>
         </div>
 
@@ -58,14 +64,22 @@
                         <p>Danh sách vai trò</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('permission.create') }}" class="nav-link">
-                        <p>Tạo dữ liệu bảng permission</p>
-                    </a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('permission.create') }}" class="nav-link">
+                            <p>Tạo dữ liệu bảng permission</p>
+                        </a>
+                    </li>
+                @endauth
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+</aside>
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Content of the sidebar goes here -->
+    <span class="nav-item">
+        <a class="nav-link" href="{{ route('auth.signout') }}">Logout</a>
+    </span>
 </aside>

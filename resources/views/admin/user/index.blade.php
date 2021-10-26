@@ -29,6 +29,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Các vai trò</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -38,6 +39,11 @@
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>
+                                @foreach($user->role_users as $role)
+                                    <span>{{$role->name}}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 <div class="row">
                                     <a href="{{ route('user.edit', ['user' => $user->id]) }}"
