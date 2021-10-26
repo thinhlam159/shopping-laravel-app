@@ -15,8 +15,8 @@ class CreatePermissionRoleTable extends Migration
     {
         Schema::create('permission_roles', function (Blueprint $table) {
             $table->id();
-            $table->string('role_id');
-            $table->string('permission_id');
+            $table->bigInteger('role_id');
+            $table->bigInteger('permission_id');
             $table->timestamps();
         });
     }
