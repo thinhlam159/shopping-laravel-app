@@ -19,6 +19,7 @@ class AdminProductController extends Controller
     private $productImage;
     private $productTag;
     private $tag;
+
     public function __construct(
         Product      $product,
         ProductImage $productImage,
@@ -152,6 +153,51 @@ class AdminProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('edit_product');
+        try {
+            DB::beginTransaction();
+            $createProductData = [
+                'name' => $request->name,
+                'price' => $request->price,
+                'content' => $request->contents,
+                'user_id' => auth()->id(),
+                'category_id' => $request->category_id,
+            ];
+            $dataUploads = $this->storageTraitUpload($request, 'feature_image_path', 'product');
+            if (!empty($dataUploads)) {
+                $createProductData['feature_image_path'] = $dataUploads['file_path'];
+                $createProductData['feature_image_name'] = $dataUploads['file_name'];
+            }
+            $product = $this->product->find($id);
+            $product->update($createProductData);
+            if (!empty($product->id)) {
+                if (!empty($request->file('image_path'))) {
+                    $product->productImages()->detach();
+                    foreach ($request->file('image_path') as $detailImage) {
+                        $detailImageUploads = $this->storageTraitImage($detailImage, 'product');
+                        $product->productImages()->create([
+                                'image_path' => $detailImageUploads['file_path'],
+                                'image_name' => $detailImageUploads['file_name'],
+                            ]
+                        );
+                    }
+                }
+                if (!empty($request->has('tags'))) {
+                    $tagIds = [];
+                    foreach ($request->tags as $tag) {
+                        $tagInstance = $this->tag->firstOrCreate([
+                            'name' => $tag
+                        ]);
+                        $tagIds[] = $tagInstance->id;
+                    }
+                    $product->tags()->detach();
+                }
+            }
+            DB::commit();
+            return redirect()->route('product.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message: ' . $exception->getMessage() . 'Line: ' . $exception->getLine());
+        }
     }
 
     /**
@@ -163,5 +209,20 @@ class AdminProductController extends Controller
     public function destroy($id)
     {
         $this->authorize('delete_product');
+        try {
+            DB::beginTransaction();
+
+            $product = $this->product->find($id)->delete();
+
+            if (!empty($product->id)) {
+                $product->productImages()->detach();
+                $product->tags()->detach();
+            }
+            DB::commit();
+            return redirect()->route('product.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message: ' . $exception->getMessage() . 'Line: ' . $exception->getLine());
+        }
     }
 }

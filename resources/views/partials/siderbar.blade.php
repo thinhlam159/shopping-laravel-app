@@ -55,7 +55,7 @@
                 <li class="nav-item">
                     <a href="{{ route('user.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Danh sách nhân viên</p>
+                        <p>Quản lý user, phân quyền</p>
                     </a>
                 </li>
                 <li class="nav-item">

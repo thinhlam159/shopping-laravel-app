@@ -27,7 +27,7 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Tên</th>
+                        <th scope="col">Tài khoản</th>
                         <th scope="col">Email</th>
                         <th scope="col">Các vai trò</th>
                         <th scope="col">Action</th>
