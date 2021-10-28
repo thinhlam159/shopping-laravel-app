@@ -47,14 +47,37 @@
                                 <input class="form-control" name="price" placeholder="Giá bán"
                                        value="{{old('price')}}">
                             </div>
-                            <div class="form-group">
-                                <label>Ảnh đại diện</label>
-                                <input type="file" class="form-control-file" name="feature_image_path">
+                            <div class="form-group form-main-image-upload">
+                                <div class="form-upload">
+                                    <label for="main-image" class="form-upload__title">
+                                        <p>Ảnh đại diện</p>
+                                        <a class="btn btn-success">Upload</a>
+                                    </label>
+                                    <a class="btn btn-danger btn-clear ml-3">Clear</a>
+                                    <input type="file"
+                                           class="form-control-file form-upload__control js-form-upload-control"
+                                           name="feature_image_path"
+                                           id="main-image"
+                                    >
+                                    <div class="form-upload__preview d-flex justify-content-center mt-1"></div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Ảnh chi tiết</label>
-                                <input type="file" class="form-control-file" name="image_path[]" multiple>
+                            <div class="form-group form-image-detail-upload">
+                                <div class="form-upload">
+                                    <label for="detail-image" class="form-upload__title">
+                                        <p>Ảnh chi tiết</p>
+                                        <a class="btn btn-success">Upload</a>
+                                    </label>
+                                    <a class="btn btn-danger btn-clear ml-3">Clear</a>
+                                    <input type="file"
+                                           class="form-control-file form-upload__control js-form-upload-control"
+                                           name="image_path[]"
+                                           id="detail-image"
+                                           multiple>
+                                    <div class="form-upload__preview d-flex justify-content-sm-between mt-1"></div>
+                                </div>
                             </div>
+
                             <div class="form-group">
                                 <label>Nội dung</label>
                                 <textarea name="contents" cols="30" rows="10" class="form-control my-editor"></textarea>

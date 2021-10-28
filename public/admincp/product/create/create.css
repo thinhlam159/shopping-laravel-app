@@ -1,3 +1,68 @@
 .select2-selection__choice {
     background: #0c525d !important;
 }
+/*.main-image-preview {*/
+/*    width: 70px;*/
+/*    height: 100px;*/
+/*}*/
+
+/*.main-image-preview img {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    object-fit: contain;*/
+/*}*/
+
+.form-upload__preview {
+     display: flex;
+     flex-wrap: wrap;
+     width: calc(100% + 15px);
+     margin-left: -7.5px;
+ }
+
+.form-upload__title {
+     cursor: pointer;
+     display: inline-block;
+     text-align: center;
+     border-radius: 5px;
+     /*border: 1px solid #d9d9d9;*/
+     /*color: #fff;*/
+     font-weight: 600;
+     position: relative;
+ }
+
+.form-upload__control {
+     position: absolute;
+     width: 0;
+     height: 0;
+ }
+
+.form-upload__item {
+     width: 150px;
+     margin: 0 7.5px;
+ }
+
+.form-upload__item-thumbnail {
+     padding-top: 100%;
+     background-size: auto 100%;
+     background-position: center;
+     background-repeat: no-repeat;
+     border: 1px solid #d2d2d2;
+     border-radius: 4px;
+ }
+
+.form-upload__item-name {
+     word-break: break-all;
+     text-align: center;
+     margin-top: 8px;
+     font-size: 13px;
+ }
+
+.form-upload__field {
+     display: flex;
+ }
+
+
+.btn-clear {
+    height: 45px;
+    display: none;
+}
