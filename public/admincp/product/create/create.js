@@ -45,11 +45,7 @@ $(function () {
             });
         }
     };
-
     tinymce.init(editor_config);
-
-
-
 })
 //upload image script
 $(function () {
